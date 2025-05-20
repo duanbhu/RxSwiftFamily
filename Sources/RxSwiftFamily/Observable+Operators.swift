@@ -119,8 +119,8 @@ public extension ObservableType {
 
 //https://gist.github.com/brocoo/aaabf12c6c2b13d292f43c971ab91dfa
 @MainActor
-extension Reactive where Base: UIScrollView {
-    public var reachedBottom: Observable<Void> {
+public extension Reactive where Base: UIScrollView {
+    var reachedBottom: Observable<Void> {
         let scrollView = self.base as UIScrollView
         return self.contentOffset.flatMap { [weak scrollView] (contentOffset) -> Observable<Void> in
             guard let scrollView = scrollView else { return Observable.empty() }
@@ -159,7 +159,7 @@ func nonMarkedText(_ textInput: UITextInput) -> String? {
 }
 
 @MainActor
-func <-> <Base>(textInput: TextInput<Base>, variable: BehaviorRelay<String>) -> Disposable {
+public func <-> <Base>(textInput: TextInput<Base>, variable: BehaviorRelay<String>) -> Disposable {
     let bindToUIDisposable = variable.asObservable()
         .bind(to: textInput.text)
     let bindToVariable = textInput.text
@@ -192,7 +192,7 @@ func <-> <Base>(textInput: TextInput<Base>, variable: BehaviorRelay<String>) -> 
 }
 
 @MainActor
-func <-> <T>(property: ControlProperty<T>, variable: BehaviorRelay<T>) -> Disposable {
+public func <-> <T>(property: ControlProperty<T>, variable: BehaviorRelay<T>) -> Disposable {
     if T.self == String.self {
         #if DEBUG
         fatalError("It is ok to delete this message, but this is here to warn that you are maybe trying to bind to some `rx.text` property directly to variable.\n" +
