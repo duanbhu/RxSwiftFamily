@@ -54,9 +54,10 @@ public protocol BooleanType {
     var boolValue: Bool { get }
 }
 
-extension Bool: BooleanType {
-    public var boolValue: Bool { return self }
-}
+// rxswift中，Bool not()这个方法了
+//extension Bool: BooleanType {
+//    public var boolValue: Bool { return self }
+//}
 
 // Maps true to false and vice versa
 public extension Observable where Element: BooleanType {
